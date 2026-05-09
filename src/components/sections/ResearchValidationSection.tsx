@@ -88,7 +88,7 @@ const ResearchValidationSection: React.FC = () => {
               initial={{ opacity: 0, scale: 1.02 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }} // Smooth Apple easing
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }} // Smooth Apple easing
               style={{
                 position: 'absolute',
                 inset: 0,

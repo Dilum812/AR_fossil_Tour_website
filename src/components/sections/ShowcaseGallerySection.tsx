@@ -62,10 +62,8 @@ const showcaseItems = [
 ];
 
 const springTransition = {
-  type: "spring",
-  stiffness: 100,
-  damping: 20,
-  mass: 1
+  duration: 1.2,
+  ease: [0.16, 1, 0.3, 1]
 };
 
 const ShowcaseGallerySection: React.FC = () => {
@@ -83,53 +81,84 @@ const ShowcaseGallerySection: React.FC = () => {
     }
   };
 
+  const headerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: headerRef,
+    offset: ["start start", "end end"]
+  });
+
+  const paddingX = useTransform(scrollYProgress, [0, 1], ["5vw", "0vw"]);
+  const headerMaxWidth = useTransform(scrollYProgress, [0, 1], ["1400px", "4000px"]);
+  const headerHeight = useTransform(scrollYProgress, [0, 1], ["80vh", "100vh"]);
+  const headerBorderRadius = useTransform(scrollYProgress, [0, 1], ["40px", "0px"]);
+
   return (
     <section 
       style={{
         position: 'relative',
-        background: '#fff', // Pristine white background for gallery area
-        overflow: 'hidden',
+        background: '#ffffff', // Pristine white background for gallery area
       }}
     >
-      {/* Immersive Dark Hero Header (macOS 'Smooth operator' style) */}
-      <div style={{
-        position: 'relative',
-        padding: '12rem 2rem 14rem 2rem',
-        background: 'linear-gradient(135deg, #1b0f38 0%, #254d74 50%, #307a6a 100%)', // Deep purple to blue to green
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        overflow: 'hidden'
-      }}>
-        {/* Abstract blurred shapes imitating the "Liquid Glass" depth */}
-        <div style={{
-           position: 'absolute', width: '50vw', height: '50vw', background: 'rgba(120, 80, 255, 0.3)', filter: 'blur(100px)', borderRadius: '50%', top: '-20%', left: '-10%'
-        }} />
-        <div style={{
-           position: 'absolute', width: '60vw', height: '60vw', background: 'rgba(80, 200, 180, 0.25)', filter: 'blur(120px)', borderRadius: '50%', bottom: '-30%', right: '-15%'
-        }} />
-        <div style={{
-           position: 'absolute', width: '40vw', height: '150%', background: 'rgba(0, 0, 0, 0.2)', filter: 'blur(60px)', top: 0, left: '30%', transform: 'skewX(-15deg)'
-        }} />
+      {/* Immersive Dark Hero Header (macOS 'Smooth operator' style with Sticky Scroll) */}
+      <div ref={headerRef} style={{ height: '150vh', position: 'relative' }}>
+        <motion.div style={{
+          position: 'sticky',
+          top: 0,
+          height: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden',
+          paddingLeft: paddingX,
+          paddingRight: paddingX
+        }}>
+          <motion.div style={{
+            width: '100%',
+            maxWidth: headerMaxWidth,
+            height: headerHeight,
+            borderRadius: headerBorderRadius,
+            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%), url(/visual_showcase_cover.png)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundColor: '#1b0f38',
+            position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            overflow: 'hidden',
+            boxShadow: '0 25px 50px rgba(0,0,0,0.2)'
+          }}>
+            {/* Abstract blurred shapes imitating the "Liquid Glass" depth */}
+            <div style={{
+              position: 'absolute', width: '50vw', height: '50vw', background: 'rgba(120, 80, 255, 0.3)', filter: 'blur(100px)', borderRadius: '50%', top: '-20%', left: '-10%'
+            }} />
+            <div style={{
+              position: 'absolute', width: '60vw', height: '60vw', background: 'rgba(80, 200, 180, 0.25)', filter: 'blur(120px)', borderRadius: '50%', bottom: '-30%', right: '-15%'
+            }} />
+            <div style={{
+              position: 'absolute', width: '40vw', height: '150%', background: 'rgba(0, 0, 0, 0.2)', filter: 'blur(60px)', top: 0, left: '30%', transform: 'skewX(-15deg)'
+            }} />
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          style={{ position: 'relative', zIndex: 10, maxWidth: '800px' }}
-        >
-          <span style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.9)', fontWeight: 600, marginBottom: '1.5rem', display: 'block', letterSpacing: '0.02em' }}>
-            Visual Showcase
-          </span>
-          <h2 style={{ fontSize: 'clamp(4rem, 8vw, 6.5rem)', color: '#fff', marginBottom: '1.5rem', lineHeight: 1.05, fontWeight: 700, letterSpacing: '-0.04em' }}>
-            Immersive Learning <br/> in Motion.
-          </h2>
-          <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.25rem', lineHeight: 1.6, fontWeight: 500, maxWidth: '600px', margin: '0 auto' }}>
-            Explore how augmented reality, artificial intelligence, and interactive storytelling transform static fossil exhibits into living educational experiences.
-          </p>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              style={{ position: 'relative', zIndex: 10, maxWidth: '800px', padding: '0 2rem' }}
+            >
+              <span style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.9)', fontWeight: 600, marginBottom: '1.5rem', display: 'block', letterSpacing: '0.02em' }}>
+                Visual Showcase
+              </span>
+              <h2 style={{ fontSize: 'clamp(4rem, 8vw, 6.5rem)', color: '#fff', marginBottom: '1.5rem', lineHeight: 1.05, fontWeight: 700, letterSpacing: '-0.04em' }}>
+                Immersive Learning <br/> in Motion.
+              </h2>
+              <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.25rem', lineHeight: 1.6, fontWeight: 500, maxWidth: '600px', margin: '0 auto' }}>
+                Explore how augmented reality, artificial intelligence, and interactive storytelling transform static fossil exhibits into living educational experiences.
+              </p>
+            </motion.div>
+          </motion.div>
         </motion.div>
       </div>
 
@@ -148,7 +177,7 @@ const ShowcaseGallerySection: React.FC = () => {
             display: 'flex',
             overflowX: 'auto',
             scrollSnapType: 'x mandatory',
-            padding: '0 5vw 4rem 5vw',
+            padding: '2rem 5vw 4rem 5vw', // Added top padding to prevent clipping on hover
             gap: '2.5rem',
             scrollbarWidth: 'none', // Firefox
             msOverflowStyle: 'none', // IE
@@ -160,6 +189,7 @@ const ShowcaseGallerySection: React.FC = () => {
               key={item.id}
               initial={{ opacity: 0, scale: 0.95, x: 50 }}
               whileInView={{ opacity: 1, scale: 1, x: 0 }}
+              whileHover={{ scale: 1.03 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ ...springTransition, delay: index * 0.1 }}
               style={{
@@ -167,12 +197,12 @@ const ShowcaseGallerySection: React.FC = () => {
                 scrollSnapAlign: 'center',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '2rem'
+                gap: '2rem',
+                cursor: 'pointer'
               }}
             >
               {/* Media Container */}
               <motion.div 
-                whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                   width: '100%',

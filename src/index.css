@@ -62,7 +62,7 @@ p {
 }
 
 .text-gradient-accent {
-  background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);
+  background: linear-gradient(90deg, #3b82f6 0%, #a855f7 35%, #ec4899 70%, #f97316 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

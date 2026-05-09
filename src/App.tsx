@@ -7,6 +7,9 @@ import SolutionOverviewSection from './components/sections/SolutionOverviewSecti
 import ShowcaseGallerySection from './components/sections/ShowcaseGallerySection';
 import ResearchValidationSection from './components/sections/ResearchValidationSection';
 import FuturePotentialSection from './components/sections/FuturePotentialSection';
+import ResourceHubSection from './components/sections/ResourceHubSection';
+import ContactSection from './components/sections/ContactSection';
+import FooterSection from './components/sections/FooterSection';
 import './index.css';
 
 function App() {
@@ -21,7 +24,10 @@ function App() {
         <ShowcaseGallerySection />
         <ResearchValidationSection />
         <FuturePotentialSection />
+        <ResourceHubSection />
+        <ContactSection />
       </main>
+      <FooterSection />
     </div>
   );
 }

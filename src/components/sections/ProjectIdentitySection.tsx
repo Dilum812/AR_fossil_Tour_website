@@ -49,10 +49,8 @@ const techStack = [
 
 // Apple-style spring animation configuration
 const springTransition = {
-  type: "spring",
-  stiffness: 100,
-  damping: 20,
-  mass: 1
+  duration: 1.2,
+  ease: [0.16, 1, 0.3, 1]
 };
 
 const ProjectIdentitySection: React.FC = () => {
@@ -94,13 +92,7 @@ const ProjectIdentitySection: React.FC = () => {
           </span>
           <h2 style={{ fontSize: 'clamp(3rem, 7vw, 6rem)', color: '#1d1d1f', marginBottom: '1.5rem', lineHeight: 1.05, fontWeight: 700, letterSpacing: '-0.04em' }}>
             An immersive <br/>
-            <span style={{
-              background: 'linear-gradient(90deg, #2E88F5 0%, #A056DE 33%, #E63A6E 66%, #F26021 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              color: 'transparent'
-            }}>educational platform.</span>
+            <span className="text-gradient-accent">educational platform.</span>
           </h2>
           <p style={{ color: '#1d1d1f', maxWidth: '800px', fontSize: '1.4rem', lineHeight: 1.5, fontWeight: 500 }}>
             Exploring the future of AI-powered museum experiences. The AR Fossil & Fauna Tour bridges the gap between static exhibits and digital-native learners.

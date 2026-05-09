@@ -99,53 +99,50 @@ const FeaturePill = ({ feature, isActive, onClick }: { feature: any, isActive: b
       layout
       onClick={onClick}
       style={{
-        background: isActive ? 'rgba(255, 255, 255, 0.7)' : '#f0f0f2',
-        backdropFilter: isActive ? 'blur(20px)' : 'none',
-        WebkitBackdropFilter: isActive ? 'blur(20px)' : 'none',
-        border: isActive ? '1px solid rgba(255,255,255,0.4)' : '1px solid transparent',
-        borderRadius: isActive ? '24px' : '30px',
-        padding: isActive ? '1.5rem' : '10px 20px',
+        background: isActive ? '#e8e8ed' : '#f0f0f2',
+        borderRadius: isActive ? '20px' : '100px',
+        padding: isActive ? '1.5rem' : '12px 20px',
         cursor: 'pointer',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
         overflow: 'hidden',
         color: '#1d1d1f',
-        width: isActive ? '380px' : 'fit-content',
-        boxShadow: isActive ? '0 10px 30px rgba(0,0,0,0.1)' : 'none',
-        zIndex: isActive ? 10 : 1
+        width: isActive ? '340px' : 'fit-content',
+        boxShadow: 'none',
+        zIndex: isActive ? 10 : 1,
+        margin: 0
       }}
       whileHover={!isActive ? { backgroundColor: '#e8e8ed' } : {}}
-      transition={{ layout: { type: "spring", stiffness: 300, damping: 30 } }}
+      transition={{ layout: { type: "spring", stiffness: 400, damping: 30 } }}
     >
-      <motion.div layout style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-        {!isActive && (
-          <div style={{ width: '22px', height: '22px', borderRadius: '50%', border: '1.5px solid #1d1d1f', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Plus size={14} color="#1d1d1f" strokeWidth={3} />
-          </div>
-        )}
-        {isActive && (
-          <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'transparent' }} /> // Spacer to align text slightly, or just omit. The screenshot shows no icon when active.
-        )}
-        <span style={{ 
-          fontWeight: 600, 
-          fontSize: isActive ? '0.95rem' : '0.95rem', // Text size doesn't change much in the screenshot, it just becomes part of the paragraph
-          color: '#1d1d1f',
-          display: isActive ? 'none' : 'block' // Hide the standalone title when active, it's rendered inside the paragraph
-        }}>
-          {feature.title}
-        </span>
-      </motion.div>
-      
-      <AnimatePresence>
-        {isActive && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+      <AnimatePresence mode="popLayout">
+        {!isActive ? (
+          <motion.div 
+            key="inactive"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            style={{ display: 'flex', alignItems: 'center', gap: '12px', whiteSpace: 'nowrap' }}
           >
-            <p style={{ color: '#1d1d1f', fontSize: '0.95rem', lineHeight: 1.5, letterSpacing: '-0.01em' }}>
+            <div style={{ width: '22px', height: '22px', borderRadius: '50%', border: '1.5px solid #86868b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Plus size={14} color="#1d1d1f" strokeWidth={2.5} />
+            </div>
+            <span style={{ fontWeight: 600, fontSize: '0.95rem', color: '#1d1d1f' }}>
+              {feature.title}
+            </span>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="active"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+            style={{ width: '100%' }}
+          >
+            <p style={{ color: '#1d1d1f', fontSize: '0.95rem', lineHeight: 1.5, letterSpacing: '-0.01em', margin: 0 }}>
               <span style={{ fontWeight: 700 }}>{feature.title}. </span> {feature.desc}
             </p>
           </motion.div>
