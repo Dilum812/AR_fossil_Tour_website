@@ -2,12 +2,12 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, animate } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import vsImg from '../../assets/vs.jpeg';
-import sc1Img from '../../assets/Sc1.png';
-import sc2Img from '../../assets/Sc2.png';
-import sc3Img from '../../assets/Sc3.png';
-import sc4Img from '../../assets/Sc4.png';
-import sc5Img from '../../assets/Sc5.png';
-import sc6Img from '../../assets/Sc6.png';
+import sc1Img from '../../assets/sc1.png';
+import sc2Img from '../../assets/sc2.png';
+import sc3Img from '../../assets/sc3.png';
+import sc4Img from '../../assets/sc4.png';
+import sc5Img from '../../assets/sc5.png';
+import sc6Img from '../../assets/sc6.png';
 
 const showcaseItems = [
   {
