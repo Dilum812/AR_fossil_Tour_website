@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, animate, type Transition } from 'framer-motion';
+import { motion, useScroll, useTransform, animate } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import vsImg from '../../assets/vs.jpeg';
 import sc1Img from '../../assets/Sc1.png';
