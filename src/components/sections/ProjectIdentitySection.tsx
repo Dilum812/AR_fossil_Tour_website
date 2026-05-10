@@ -50,10 +50,10 @@ const techStack = [
 ];
 
 // Apple-style spring animation configuration
-const springTransition: Transition = {
+const springTransition = {
   duration: 1.2,
-  ease: [0.16, 1, 0.3, 1]
-};
+  ease: [0.16, 1, 0.3, 1] as const
+} as any;
 
 const ProjectIdentitySection: React.FC = () => {
   const [activeModal, setActiveModal] = useState<number | null>(null);
