@@ -1,42 +1,33 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Play, Pause } from 'lucide-react';
 import { animate } from 'framer-motion';
+import scard1 from '../../assets/Scard1.jpeg';
+import scard2 from '../../assets/Scard2.jpeg';
+import scard3 from '../../assets/Scard3.jpeg';
+import scard4 from '../../assets/Scard4.jpeg';
 
 const slides = [
   {
     text: "Static exhibits are losing the digital generation.",
-    image: "/museum-scene.png"
+    image: scard1
   },
   {
     text: "74% of young visitors disengage from traditional printed labels.",
-    image: "/media__1778257658360.png"
+    image: scard2
   },
   {
     text: "Museums lack the tools for the future of immersive learning.",
-    image: "/media__1778258552276.png"
+    image: scard3
   },
   {
     text: "A bridge between the past and the future of spatial computing.",
-    image: "/hero-fossil.png" // using hero fossil as a placeholder for AR
+    image: scard4
   }
 ];
 
 const ProblemNeedSection: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  // Auto-play functionality
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isPlaying) {
-      interval = setInterval(() => {
-        const nextIndex = (activeIndex + 1) % slides.length;
-        scrollToSlide(nextIndex);
-      }, 5000); // Increased to 5 seconds per slide to account for slower animation
-    }
-    return () => clearInterval(interval);
-  }, [isPlaying, activeIndex]);
 
   // Handle scroll to update the active dot perfectly based on center of viewport
   useEffect(() => {
@@ -44,16 +35,16 @@ const ProblemNeedSection: React.FC = () => {
       if (scrollRef.current) {
         const container = scrollRef.current;
         const scrollLeft = container.scrollLeft;
-        
-        const cardWidth = window.innerWidth * 0.9; 
+
+        const cardWidth = window.innerWidth * 0.9;
         const gap = 24; // 1.5rem
         const itemTotalWidth = cardWidth + gap;
-        
+
         const index = Math.round(scrollLeft / itemTotalWidth);
-        
+
         // Clamp index to bounds
         const clampedIndex = Math.max(0, Math.min(index, slides.length - 1));
-        
+
         // Only update state if it actually changed to prevent re-renders
         if (clampedIndex !== activeIndex) {
           setActiveIndex(clampedIndex);
@@ -79,7 +70,7 @@ const ProblemNeedSection: React.FC = () => {
       const cardWidth = Math.min(window.innerWidth * 0.9, 1400); // Max width is 1400
       const gap = 24; // 1.5rem
       const itemTotalWidth = cardWidth + gap;
-      
+
       const targetScroll = index * itemTotalWidth;
 
       // Slower, highly cinematic smooth animation
@@ -93,15 +84,15 @@ const ProblemNeedSection: React.FC = () => {
           }
         }
       });
-      
+
       setActiveIndex(index);
     }
   };
 
   return (
-    <section 
+    <section
       id="research"
-      style={{ 
+      style={{
         position: 'relative',
         background: 'var(--bg-primary)',
         padding: '8rem 0 6rem 0',
@@ -114,18 +105,18 @@ const ProblemNeedSection: React.FC = () => {
     >
       {/* Section Header */}
       <div style={{ width: '100%', maxWidth: '1400px', padding: '0 10vw', marginBottom: '2.5rem' }}>
-        <h2 style={{ 
-          fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
-          fontWeight: 700, 
+        <h2 style={{
+          fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+          fontWeight: 700,
           letterSpacing: '-0.04em',
-          color: 'var(--text-primary)' 
+          color: 'var(--text-primary)'
         }}>
-          Get the highlights.
+          Designed For Another Era.
         </h2>
       </div>
 
       {/* Horizontal Snap Carousel */}
-      <div 
+      <div
         ref={scrollRef}
         style={{
           display: 'flex',
@@ -147,18 +138,32 @@ const ProblemNeedSection: React.FC = () => {
           `}
         </style>
         {slides.map((slide, index) => (
-          <div 
+          <div
             key={index}
+            onClick={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              if (x > rect.width / 2) {
+                if (index < slides.length - 1) {
+                  scrollToSlide(index + 1);
+                }
+              } else {
+                if (index > 0) {
+                  scrollToSlide(index - 1);
+                }
+              }
+            }}
             style={{
               flex: '0 0 auto',
               width: '90vw',
               maxWidth: '1400px',
               height: '75vh',
-              scrollSnapAlign: 'center', // Snaps perfectly to the center of the scrollport
+              scrollSnapAlign: 'center',
               position: 'relative',
-              borderRadius: '40px', // Match the 40px radius of Take a Closer Look
+              borderRadius: '40px',
               overflow: 'hidden',
               background: '#f5f5f7',
+              cursor: 'pointer' // Suggest interactivity
             }}
           >
             {/* Background Image */}
@@ -246,33 +251,6 @@ const ProblemNeedSection: React.FC = () => {
             />
           ))}
         </div>
-
-        {/* Play/Pause Button */}
-        <button 
-          onClick={() => setIsPlaying(!isPlaying)}
-          style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '50%',
-            background: '#e8e8ed',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            color: '#1d1d1f',
-            transition: 'background 0.2s'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.background = '#d2d2d7'}
-          onMouseLeave={(e) => e.currentTarget.style.background = '#e8e8ed'}
-          aria-label={isPlaying ? "Pause carousel" : "Play carousel"}
-        >
-          {isPlaying ? (
-            <Pause size={14} fill="currentColor" strokeWidth={0} />
-          ) : (
-            <Play size={14} fill="currentColor" strokeWidth={0} style={{ marginLeft: '2px' }} />
-          )}
-        </button>
       </div>
     </section>
   );

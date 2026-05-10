@@ -77,7 +77,7 @@ const FuturePotentialSection: React.FC = () => {
   const responsiveLeftMargin = 'max(2rem, calc((100vw - 1400px) / 2 + 2rem))';
 
   return (
-    <section style={{
+    <section id="future" style={{
       padding: '8rem 0 10rem 0',
       background: '#f5f5f7', // Signature Apple light gray
       overflow: 'hidden'

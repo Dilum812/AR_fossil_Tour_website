@@ -4,85 +4,79 @@ import { Download } from 'lucide-react';
 
 const showcaseCards = [
   {
-    title: 'Research Proposal.',
-    description: 'Explore the academic foundation, problem analysis, research methodology, and conceptual direction behind the AR Fossil & Fauna Tour platform.',
-    image: '/resource-proposal.png',
-    links: [
-      { text: 'Download proposal', href: '#' }
-    ]
+    title: 'Final Report.',
+    description: 'A comprehensive academic document detailing the full lifecycle of the AR Fossil & Fauna Tour, including implementation, evaluation, and conclusions.',
+    href: '/final-report.pdf',
+    downloadName: 'Final_Report.pdf'
   },
   {
-    title: 'Technical Documentation.',
-    description: 'Discover the engineering architecture powering the immersive museum ecosystem, including AR systems, AI pipelines, BLE navigation, and analytics infrastructure.',
-    image: '/resource-tech.png',
-    links: [
-      { text: 'Download technical document', href: '#' }
-    ]
+    title: 'Feasibility Report.',
+    description: 'Technical and operational feasibility analysis conducted during the project’s conceptual phase to ensure the viability of the immersive museum system.',
+    href: '/feasibility-report.pdf',
+    downloadName: 'Feasibility_Report.pdf'
   },
   {
-    title: 'Research Thesis.',
-    description: 'Read the comprehensive academic thesis detailing the implementation, learning outcomes, and evaluation of the intelligent museum exploration prototype.',
-    image: '/resource-demo.png',
-    links: [
-      { text: 'Download thesis document', href: '#' }
-    ]
+    title: 'Project Proposal.',
+    description: 'The initial conceptual framework, methodology, and research objectives defined at the start of the AR museum exploration initiative.',
+    href: '/proposal.docx',
+    downloadName: 'Project_Proposal.docx'
   }
 ];
 
 const ResourceHubSection: React.FC = () => {
   return (
-    <section 
+    <section
       id="resource-hub"
       style={{
         position: 'relative',
-        padding: '12rem 0', // Massive whitespace
-        backgroundColor: '#fbfbfd', // Apple light luxury background
+        padding: '12rem 0',
+        backgroundColor: '#ffffff', // Pure white background
         color: '#1d1d1f',
         overflow: 'hidden'
       }}
     >
       <div className="container" style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem' }}>
-        
+
         {/* Editorial Heading */}
         <div style={{ textAlign: 'center', marginBottom: '8rem', maxWidth: '800px', margin: '0 auto 8rem auto' }}>
-          <span style={{ 
-            display: 'block', 
-            fontSize: '1rem', 
-            fontWeight: 600, 
-            color: '#86868b', 
-            marginBottom: '1rem' 
+          <span style={{
+            display: 'block',
+            fontSize: '1rem',
+            fontWeight: 600,
+            color: '#86868b',
+            marginBottom: '1rem'
           }}>
             Resource Hub
           </span>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            style={{ 
-              fontSize: 'clamp(3.5rem, 6vw, 6rem)', 
-              fontWeight: 700, 
+            style={{
+              fontSize: 'clamp(3.5rem, 6vw, 6rem)',
+              fontWeight: 700,
               letterSpacing: '-0.04em',
               lineHeight: 1.05,
               marginBottom: '2rem',
               color: '#1d1d1f'
             }}
           >
-            Built for <br/>
+            Built for <br />
             <span className="text-gradient-accent">
               Real-World Deployment.
             </span>
           </motion.h2>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            style={{ 
-              fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', 
+            style={{
+              fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
               fontWeight: 500,
-              color: '#1d1d1f', 
+              color: '#1d1d1f',
               lineHeight: 1.6,
               letterSpacing: '-0.01em',
               maxWidth: '650px',
@@ -93,11 +87,11 @@ const ResourceHubSection: React.FC = () => {
           </motion.p>
         </div>
 
-        {/* Media Showcase Grid */}
+        {/* Clean Resource Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
-          gap: '3rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+          gap: '2.5rem',
           alignItems: 'stretch'
         }}>
           {showcaseCards.map((card, index) => (
@@ -106,126 +100,64 @@ const ResourceHubSection: React.FC = () => {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.2, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1.2, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
               style={{
-                textDecoration: 'none',
-                color: 'inherit',
                 display: 'flex',
                 flexDirection: 'column',
-                backgroundColor: '#ffffff',
-                borderRadius: '32px',
-                overflow: 'hidden',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02)',
-                position: 'relative'
+                backgroundColor: '#f5f5f7',
+                borderRadius: '40px',
+                padding: '3.5rem 3rem',
+                border: '1px solid rgba(0,0,0,0.02)',
+                transition: 'all 0.4s ease'
               }}
-              className="group"
+              whileHover={{ y: -10, backgroundColor: '#f0f0f2' }}
             >
-              {/* Media Container with Zoom Effect */}
-              <div style={{
-                position: 'relative',
-                width: '100%',
-                aspectRatio: '1 / 1',
-                overflow: 'hidden',
-                backgroundColor: '#f5f5f7'
-              }}>
-                <motion.img 
-                  src={card.image} 
-                  alt={card.title}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-                    transformOrigin: 'center'
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                />
-                
-                {/* Subtle Inner Shadow overlay for premium feel */}
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.05)',
-                  borderRadius: '32px 32px 0 0',
-                  pointerEvents: 'none'
-                }} />
-              </div>
-
-              {/* Text Content */}
-              <div style={{
-                padding: '3rem 2.5rem',
-                display: 'flex',
-                flexDirection: 'column',
-                flexGrow: 1
-              }}>
+              <div style={{ flexGrow: 1 }}>
                 <h3 style={{
-                  fontSize: '1.75rem',
+                  fontSize: '2rem',
                   fontWeight: 700,
-                  letterSpacing: '-0.02em',
-                  marginBottom: '1rem',
-                  color: '#1d1d1f'
+                  letterSpacing: '-0.03em',
+                  marginBottom: '1.5rem',
+                  color: '#1d1d1f',
+                  lineHeight: 1.2
                 }}>
                   {card.title}
                 </h3>
-                
+
                 <p style={{
-                  fontSize: '1.1rem',
+                  fontSize: '1.15rem',
                   lineHeight: 1.5,
                   color: '#86868b',
-                  marginBottom: '2.5rem',
-                  fontWeight: 500,
-                  flexGrow: 1
+                  marginBottom: '3rem',
+                  fontWeight: 500
                 }}>
                   {card.description}
                 </p>
-                
-                <div style={{
-                  marginTop: 'auto',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '0.8rem'
-                }}>
-                  {card.links ? (
-                    card.links.map((link, i) => (
-                      <motion.a
-                        key={i}
-                        href={link.href}
-                        whileHover={{ x: 5 }}
-                        transition={{ duration: 0.3 }}
-                        style={{ 
-                          fontSize: '1.1rem',
-                          fontWeight: 600,
-                          color: '#0066cc',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.5rem',
-                          textDecoration: 'none'
-                        }}
-                      >
-                        {link.text} <Download size={16} strokeWidth={2.5} />
-                      </motion.a>
-                    ))
-                  ) : (
-                    <motion.a
-                      href={card.href}
-                      whileHover={{ x: 5 }}
-                      transition={{ duration: 0.3 }}
-                      style={{ 
-                        fontSize: '1.1rem',
-                        fontWeight: 600,
-                        color: '#0066cc',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.5rem',
-                        textDecoration: 'none'
-                      }}
-                    >
-                      {card.cta} <span style={{ fontSize: '1.2em' }}>&rsaquo;</span>
-                    </motion.a>
-                  )}
-                </div>
               </div>
+
+              <motion.a
+                href={card.href}
+                download={card.downloadName}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.8rem',
+                  padding: '1.2rem 2.5rem',
+                  backgroundColor: '#3b82f6', // Gradient's first color blue
+                  color: '#ffffff',
+                  borderRadius: '100px',
+                  fontSize: '1.1rem',
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                  boxShadow: '0 15px 30px rgba(59, 130, 246, 0.25)',
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                Download Document <Download size={20} strokeWidth={2.5} />
+              </motion.a>
             </motion.div>
           ))}
         </div>

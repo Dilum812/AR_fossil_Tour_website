@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Smartphone, Cpu, Bluetooth, Mic, BarChart, Gamepad2, Plus, X, User, Lightbulb, Eye, Map } from 'lucide-react';
+import openaiIcon from '../../assets/openai.jpg';
+import firebaseIcon from '../../assets/firebase.png';
 
 const techStack = [
   {
@@ -67,7 +69,7 @@ const ProjectIdentitySection: React.FC = () => {
   }, [activeModal]);
 
   return (
-    <section 
+    <section
       id="platform"
       style={{
         position: 'relative',
@@ -78,7 +80,7 @@ const ProjectIdentitySection: React.FC = () => {
       }}
     >
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-        
+
         {/* Research Identity Header (Matches Image 1) */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -91,7 +93,7 @@ const ProjectIdentitySection: React.FC = () => {
             Research Identity
           </span>
           <h2 style={{ fontSize: 'clamp(3rem, 7vw, 6rem)', color: '#1d1d1f', marginBottom: '1.5rem', lineHeight: 1.05, fontWeight: 700, letterSpacing: '-0.04em' }}>
-            An immersive <br/>
+            An immersive <br />
             <span className="text-gradient-accent">educational platform.</span>
           </h2>
           <p style={{ color: '#1d1d1f', maxWidth: '800px', fontSize: '1.4rem', lineHeight: 1.5, fontWeight: 500 }}>
@@ -100,64 +102,64 @@ const ProjectIdentitySection: React.FC = () => {
         </motion.div>
 
         {/* 2-Column Editorial Layout */}
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', 
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
           gap: '6rem',
           marginBottom: '10rem',
           alignItems: 'center'
         }}>
-          
+
           {/* Left Panel: 2x2 Creator Identity Grid (Matches Image 2) */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
             gap: '1.5rem'
           }}>
-             {/* Card 1 */}
-             <motion.div 
-               initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ ...springTransition, delay: 0.1 }}
-               style={{ background: '#fff', borderRadius: '32px', padding: '2.5rem', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}
-             >
-                <User size={32} color="#1d1d1f" style={{ marginBottom: '1.5rem' }} />
-                <h4 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#1d1d1f', marginBottom: '0.8rem', letterSpacing: '-0.02em' }}>Dissanayake D.M.D.T</h4>
-                <p style={{ color: '#86868b', fontSize: '1.1rem', lineHeight: 1.5 }}>Interactive Media Researcher</p>
-                <img src="/sliit-logo.png" alt="SLIIT University" style={{ height: '64px', marginTop: '1.5rem', objectFit: 'contain', display: 'block' }} />
-             </motion.div>
-             
-             {/* Card 2 */}
-             <motion.div 
-               initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ ...springTransition, delay: 0.2 }}
-               style={{ background: '#fff', borderRadius: '32px', padding: '2.5rem', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}
-             >
-                <Lightbulb size={32} color="#1d1d1f" style={{ marginBottom: '1.5rem' }} />
-                <h4 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#1d1d1f', marginBottom: '0.8rem', letterSpacing: '-0.02em' }}>Research Focus</h4>
-                <p style={{ color: '#86868b', fontSize: '1.1rem', lineHeight: 1.5 }}>AR Systems Design, AI Learning Experiences, and Museum Technology Innovation.</p>
-             </motion.div>
-             
-             {/* Card 3 */}
-             <motion.div 
-               initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ ...springTransition, delay: 0.3 }}
-               style={{ background: '#fff', borderRadius: '32px', padding: '2.5rem', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}
-             >
-                <Eye size={32} color="#1d1d1f" style={{ marginBottom: '1.5rem' }} />
-                <h4 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#1d1d1f', marginBottom: '0.8rem', letterSpacing: '-0.02em' }}>The Vision</h4>
-                <p style={{ color: '#86868b', fontSize: '1.1rem', lineHeight: 1.5 }}>"Transforming static fossil exhibits into emotionally engaging educational experiences."</p>
-             </motion.div>
-             
-             {/* Card 4 */}
-             <motion.div 
-               initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ ...springTransition, delay: 0.4 }}
-               style={{ background: '#fff', borderRadius: '32px', padding: '2.5rem', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}
-             >
-                <Map size={32} color="#1d1d1f" style={{ marginBottom: '1.5rem' }} />
-                <h4 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#1d1d1f', marginBottom: '0.8rem', letterSpacing: '-0.02em' }}>AR Fossil & Fauna</h4>
-                <p style={{ color: '#86868b', fontSize: '1.1rem', lineHeight: 1.5 }}>Reviving prehistoric Sri Lanka through immersive educational technology.</p>
-             </motion.div>
+            {/* Card 1 */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ ...springTransition, delay: 0.1 }}
+              style={{ background: '#fff', borderRadius: '32px', padding: '2.5rem', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}
+            >
+              <User size={32} color="#1d1d1f" style={{ marginBottom: '1.5rem' }} />
+              <h4 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#1d1d1f', marginBottom: '0.8rem', letterSpacing: '-0.02em' }}>Dilum Dissanayake</h4>
+              <p style={{ color: '#86868b', fontSize: '1.1rem', lineHeight: 1.5 }}>Interactive Media Researcher</p>
+              <img src="/sliit-logo.png" alt="SLIIT University" style={{ height: '64px', marginTop: '1.5rem', objectFit: 'contain', display: 'block' }} />
+            </motion.div>
+
+            {/* Card 2 */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ ...springTransition, delay: 0.2 }}
+              style={{ background: '#fff', borderRadius: '32px', padding: '2.5rem', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}
+            >
+              <Lightbulb size={32} color="#1d1d1f" style={{ marginBottom: '1.5rem' }} />
+              <h4 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#1d1d1f', marginBottom: '0.8rem', letterSpacing: '-0.02em' }}>Research Focus</h4>
+              <p style={{ color: '#86868b', fontSize: '1.1rem', lineHeight: 1.5 }}>AR Systems Design, AI Learning Experiences, and Museum Technology Innovation.</p>
+            </motion.div>
+
+            {/* Card 3 */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ ...springTransition, delay: 0.3 }}
+              style={{ background: '#fff', borderRadius: '32px', padding: '2.5rem', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}
+            >
+              <Eye size={32} color="#1d1d1f" style={{ marginBottom: '1.5rem' }} />
+              <h4 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#1d1d1f', marginBottom: '0.8rem', letterSpacing: '-0.02em' }}>The Vision</h4>
+              <p style={{ color: '#86868b', fontSize: '1.1rem', lineHeight: 1.5 }}>"Transforming static fossil exhibits into emotionally engaging educational experiences."</p>
+            </motion.div>
+
+            {/* Card 4 */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ ...springTransition, delay: 0.4 }}
+              style={{ background: '#fff', borderRadius: '32px', padding: '2.5rem', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}
+            >
+              <Map size={32} color="#1d1d1f" style={{ marginBottom: '1.5rem' }} />
+              <h4 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#1d1d1f', marginBottom: '0.8rem', letterSpacing: '-0.02em' }}>AR Fossil & Fauna</h4>
+              <p style={{ color: '#86868b', fontSize: '1.1rem', lineHeight: 1.5 }}>Reviving prehistoric Sri Lanka through immersive educational technology.</p>
+            </motion.div>
           </div>
 
           {/* Right Panel: Vertical Tech Stack (Matches Image 3) */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -171,40 +173,44 @@ const ProjectIdentitySection: React.FC = () => {
               padding: '2rem 0'
             }}
           >
-             {/* Tech Item 1: Icon + Text */}
-             <div style={{ textAlign: 'center' }}>
-                <div style={{ height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto' }}>
-                   <img src="/unity-logo.png" alt="Unity" style={{ height: '40px', objectFit: 'contain' }} />
-                </div>
-                <p style={{ fontSize: '1.3rem', color: '#1d1d1f', fontWeight: 500 }}>Unity AR Engine</p>
-             </div>
-             
-             {/* Tech Item 2: Custom colored Icon + Text */}
-             <div style={{ textAlign: 'center' }}>
-                <Cpu size={64} color="#af52de" strokeWidth={1.5} style={{ margin: '0 auto 1.5rem auto' }} /> 
-                <p style={{ fontSize: '1.3rem', color: '#1d1d1f', fontWeight: 500 }}>OpenAI GPT & Whisper</p>
-             </div>
-             
-             {/* Tech Item 3: Massive Number + Text */}
-             <div style={{ textAlign: 'center' }}>
-                <p style={{ fontSize: '1.1rem', color: '#1d1d1f', fontWeight: 500, marginBottom: '0.5rem' }}>Up to</p>
-                <h3 style={{ fontSize: '4rem', fontWeight: 700, color: '#1d1d1f', margin: '0 0 1rem 0', letterSpacing: '-0.04em', lineHeight: 1 }}>24 hrs</h3>
-                <p style={{ fontSize: '1.1rem', color: '#1d1d1f', fontWeight: 400 }}>ESP32 BLE Battery life</p>
-             </div>
-             
-             {/* Tech Item 4: Massive Number + Text */}
-             <div style={{ textAlign: 'center' }}>
-                <h3 style={{ fontSize: '4rem', fontWeight: 700, color: '#1d1d1f', margin: '0 0 1rem 0', letterSpacing: '-0.04em', lineHeight: 1 }}>Real-time</h3>
-                <p style={{ fontSize: '1.1rem', color: '#1d1d1f', fontWeight: 400, maxWidth: '250px', margin: '0 auto' }}>
-                   Firebase Analytics tracking for museum curators
-                </p>
-             </div>
+            {/* Tech Item 1: Icon + Text */}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto' }}>
+                <img src="/unity-logo.png" alt="Unity" style={{ height: '40px', objectFit: 'contain' }} />
+              </div>
+              <p style={{ fontSize: '1.3rem', color: '#1d1d1f', fontWeight: 500 }}>Unity AR Engine</p>
+            </div>
+
+            {/* Tech Item 2: OpenAI Logo + Text */}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto' }}>
+                <img src={openaiIcon} alt="OpenAI" style={{ height: '50px', objectFit: 'contain' }} />
+              </div>
+              <p style={{ fontSize: '1.3rem', color: '#1d1d1f', fontWeight: 500 }}>OpenAI GPT & Whisper</p>
+            </div>
+
+            {/* Tech Item 3: Massive Number + Text */}
+            <div style={{ textAlign: 'center' }}>
+              <p style={{ fontSize: '1.1rem', color: '#1d1d1f', fontWeight: 500, marginBottom: '0.5rem' }}>Up to</p>
+              <h3 style={{ fontSize: '4rem', fontWeight: 700, color: '#1d1d1f', margin: '0 0 1rem 0', letterSpacing: '-0.04em', lineHeight: 1 }}>24 hrs</h3>
+              <p style={{ fontSize: '1.1rem', color: '#1d1d1f', fontWeight: 400 }}>ESP32 BLE Battery life</p>
+            </div>
+
+            {/* Tech Item 4: Firebase Logo + Text */}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto' }}>
+                <img src={firebaseIcon} alt="Firebase" style={{ height: '40px', objectFit: 'contain' }} />
+              </div>
+              <p style={{ fontSize: '1.1rem', color: '#1d1d1f', fontWeight: 400, maxWidth: '250px', margin: '0 auto' }}>
+                Firebase Analytics tracking for museum curators
+              </p>
+            </div>
           </motion.div>
         </div>
 
         {/* Core Technologies 3-Column Grid */}
         <div>
-          <motion.h3 
+          <motion.h3
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -213,7 +219,7 @@ const ProjectIdentitySection: React.FC = () => {
           >
             Core technologies.
           </motion.h3>
-          
+
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
@@ -244,8 +250,8 @@ const ProjectIdentitySection: React.FC = () => {
                 <div style={{ marginBottom: '1.5rem' }}>
                   {tech.icon}
                 </div>
-                <h4 style={{ 
-                  fontSize: '1.8rem', 
+                <h4 style={{
+                  fontSize: '1.8rem',
                   color: '#1d1d1f',
                   fontWeight: 600,
                   lineHeight: 1.2,
@@ -345,10 +351,10 @@ const ProjectIdentitySection: React.FC = () => {
                 <X color="#ffffff" size={16} strokeWidth={3} />
               </button>
 
-              <h3 style={{ 
-                fontSize: '2.5rem', 
-                fontWeight: 700, 
-                color: '#1d1d1f', 
+              <h3 style={{
+                fontSize: '2.5rem',
+                fontWeight: 700,
+                color: '#1d1d1f',
                 marginBottom: '2rem',
                 letterSpacing: '-0.04em'
               }}>

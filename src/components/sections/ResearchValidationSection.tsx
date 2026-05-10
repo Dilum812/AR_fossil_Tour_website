@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import learningImg from '../../assets/Learning Outcome Results.png';
+import engagementImg from '../../assets/Engagement Results.png';
+import navigationImg from '../../assets/Navigation Efficiency Results.png';
+import interactiveImg from '../../assets/Interactive Learning.png';
+import analyticsImg from '../../assets/Interaction Behaviour Results.png';
 
 const researchData = [
   {
@@ -7,57 +12,50 @@ const researchData = [
     tabLabel: 'Learning Improvement',
     statistic: '40.6% Improvement in Knowledge Retention.',
     description: 'The AR learning system significantly improved educational performance compared to traditional printed-label museum experiences.',
-    gradient: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)', // Soft elegant purple-blue
+    image: learningImg,
   },
   {
     id: 'engagement',
     tabLabel: 'Visitor Engagement',
     statistic: 'Extended Interaction & Active Participation.',
     description: 'Firebase interaction logs revealed significantly higher engagement durations and repeated interaction patterns across AR experiences.',
-    gradient: 'linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)', // Clean minimal white/gray
+    image: engagementImg,
   },
   {
     id: 'navigation',
     tabLabel: 'Smart Navigation',
     statistic: 'Improved Indoor Exhibit Discovery.',
     description: 'The BLE-powered discovery system enabled users to navigate museum environments efficiently using proximity-based interactive guidance.',
-    gradient: 'linear-gradient(to top, #accbee 0%, #e7f0fd 100%)', // Smooth tech blue
+    image: navigationImg,
   },
   {
     id: 'interactive',
     tabLabel: 'Interactive Learning',
     statistic: 'Adaptive Educational Experiences.',
     description: 'The platform dynamically adjusted educational complexity using AI-driven learning personas and conversational interactions.',
-    gradient: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', // Premium industrial gray
+    image: interactiveImg,
   },
   {
     id: 'analytics',
-    tabLabel: 'Research Analytics',
-    statistic: 'Real-Time Behavioral Research Data.',
-    description: 'The platform continuously recorded anonymized interaction patterns to evaluate engagement, learning effectiveness, and navigation behavior.',
-    gradient: 'linear-gradient(to right, #434343 0%, #000000 100%)', // Deep dark analytical
+    tabLabel: 'Interaction Distribution',
+    statistic: 'Behavioral Interaction Analytics.',
+    description: 'The system captured real-time visitor interaction patterns to measure engagement levels, learning behavior, and navigation efficiency throughout the immersive AR fossil tour.',
+    image: analyticsImg,
   },
-  {
-    id: 'comparative',
-    tabLabel: 'Comparative Results',
-    statistic: 'Immersive Technology Outperformed Traditional Methods.',
-    description: 'Research findings demonstrated measurable improvements in engagement, learning retention, and visitor interaction through immersive AR experiences.',
-    gradient: 'linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%)', // Validated green
-  }
 ];
 
 const ResearchValidationSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <section style={{
+    <section id="validation" style={{
       padding: '8rem 0 10rem 0',
       background: '#fff',
       position: 'relative',
       overflow: 'hidden'
     }}>
       <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        
+
         {/* Section Header */}
         <div style={{ textAlign: 'center', marginBottom: '5rem', maxWidth: '1000px' }}>
           <span style={{ fontSize: '1.1rem', color: '#86868b', fontWeight: 600, marginBottom: '1.2rem', display: 'block' }}>
@@ -71,17 +69,20 @@ const ResearchValidationSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Massive Cinematic Image Panel */}
-        <div style={{
-          width: '100%',
-          maxWidth: '1200px',
-          aspectRatio: '16/9',
-          borderRadius: '40px', // Massive Apple rounding
-          overflow: 'hidden',
-          position: 'relative',
-          boxShadow: '0 30px 60px rgba(0,0,0,0.08)',
-          backgroundColor: '#f5f5f7'
-        }}>
+        <motion.div
+          whileHover={{ scale: 1.01 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            width: '100%',
+            maxWidth: '1200px',
+            aspectRatio: '16/9',
+            borderRadius: '40px', // Massive Apple rounding
+            overflow: 'hidden',
+            position: 'relative',
+            backgroundColor: '#ffffff',
+            cursor: 'pointer'
+          }}
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -92,22 +93,19 @@ const ResearchValidationSection: React.FC = () => {
               style={{
                 position: 'absolute',
                 inset: 0,
-                background: researchData[activeTab].gradient,
+                backgroundImage: `url(${researchData[activeTab].image})`,
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundColor: '#ffffff', // Clean Apple-style white background for the charts
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
               }}
             >
-              {/* Optional: Slight light overlay for premium depth */}
-              <div style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.05) 100%)',
-                pointerEvents: 'none'
-              }} />
             </motion.div>
           </AnimatePresence>
-        </div>
+        </motion.div>
 
         {/* Pill Navigation (Continuity Style) */}
         <div style={{

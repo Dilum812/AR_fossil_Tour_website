@@ -1,43 +1,48 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Apple } from 'lucide-react';
+import logoImg from '../../assets/Ar fossil tour logo.png';
+import faviconImg from '../../assets/favicon.png';
 
-const FloatingFragments = () => {
-  const fragments = Array.from({ length: 25 });
+const CustomCursor = () => {
+  const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
-    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden', zIndex: 0 }}>
-      {fragments.map((_, i) => (
-        <motion.div
-          key={i}
-          initial={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            opacity: 0,
-          }}
-          animate={{
-            y: [0, Math.random() * -200 - 50],
-            x: [0, (Math.random() - 0.5) * 150],
-            rotate: [0, Math.random() * 360],
-            opacity: [0, 0.6, 0]
-          }}
-          transition={{
-            duration: 8 + Math.random() * 15,
-            repeat: Infinity,
-            ease: "linear",
-            delay: Math.random() * 5
-          }}
-          style={{
-            position: 'absolute',
-            width: Math.random() * 4 + 1 + 'px',
-            height: Math.random() * 4 + 1 + 'px',
-            background: i % 2 === 0 ? 'var(--accent-cyan)' : 'var(--accent-blue)',
-            boxShadow: `0 0 ${Math.random() * 10 + 5}px var(--accent-glow)`,
-            borderRadius: Math.random() > 0.5 ? '50%' : '1px',
-            willChange: 'transform, opacity'
-          }}
-        />
-      ))}
-    </div>
+    <motion.div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '28px',
+        height: '28px',
+        pointerEvents: 'none',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+      animate={{
+        x: mousePos.x - 4, // Shifted to make top-left the point
+        y: mousePos.y - 4,
+        rotate: -15
+      }}
+      transition={{
+        type: 'spring',
+        damping: 35,
+        stiffness: 300,
+        mass: 0.4
+      }}
+    >
+      <img src={faviconImg} alt="Cursor Icon" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+    </motion.div>
   );
 };
 
@@ -48,120 +53,157 @@ const HeroSection: React.FC = () => {
     offset: ["start start", "end start"]
   });
 
-  // Apple-style mathematical scrubbed animations
-  const yBackground = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  
-  // Suck the text upward and fade it out rapidly
-  const yContent = useTransform(scrollYProgress, [0, 0.4], ["0%", "-40%"]);
   const opacityContent = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
-  const scaleContent = useTransform(scrollYProgress, [0, 0.3], [1, 0.9]);
+  const scaleContent = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
+
+  useEffect(() => {
+    document.body.style.cursor = 'none';
+    return () => {
+      document.body.style.cursor = 'auto';
+    };
+  }, []);
 
   return (
     <section 
       ref={ref}
       style={{
         position: 'relative',
-        height: '100vh', // Standard full-height hero
-        background: 'var(--bg-primary)'
+        height: '100vh',
+        background: '#ffffff',
+        overflow: 'hidden'
       }}
     >
-      <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        
-        {/* Layered Parallax Background */}
-        <motion.div style={{ position: 'absolute', inset: 0, y: yBackground, zIndex: 0, willChange: 'transform' }}>
-          <div style={{
-            position: 'absolute',
-            top: '30%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '120vw',
-            height: '100vh',
-            background: 'radial-gradient(ellipse at center, rgba(0, 102, 204, 0.05) 0%, rgba(255, 255, 255, 0) 70%)',
-            filter: 'blur(80px)',
-          }}/>
-          <div style={{
-            position: 'absolute',
-            top: '60%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '80vw',
-            height: '80vw',
-            background: 'radial-gradient(circle at center, rgba(0, 122, 255, 0.03) 0%, rgba(255, 255, 255, 0) 60%)',
-            filter: 'blur(100px)',
-          }}/>
-        </motion.div>
-
-        <FloatingFragments />
-
-        {/* Text Content */}
-        <motion.div 
-          className="container" 
-          style={{ 
-            position: 'absolute',
-            top: '25%',
-            zIndex: 10, 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center', 
-            textAlign: 'center',
-            y: yContent,
-            opacity: opacityContent,
-            scale: scaleContent,
-            willChange: 'transform, opacity'
-          }}
-        >
-          <div style={{ height: '2rem' }}></div>
-
-          <h1 style={{
-              fontSize: 'clamp(4rem, 10vw, 8rem)', // Massive Apple-style scaling
-              fontWeight: 800,
-              letterSpacing: '-0.04em',
-              lineHeight: 1,
-              marginBottom: '1.5rem',
-              maxWidth: '1200px',
-              color: 'var(--text-primary)'
-            }}
-          >
-            Reviving the <br />
-            <span className="text-gradient-accent">Lost Wilderness.</span>
-          </h1>
-
-          <p style={{
-              fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)', // Larger subtext
-              fontWeight: 500,
-              color: 'var(--text-secondary)',
-              maxWidth: '700px',
-              marginBottom: '3rem',
-              lineHeight: 1.5,
-              letterSpacing: '-0.02em'
-            }}
-          >
-            Transforming static fossils into intelligent augmented reality learning experiences.
-          </p>
-        </motion.div>
-
-        {/* Scroll Indicator */}
+      <CustomCursor />
+      <motion.div 
+        style={{ 
+          position: 'relative',
+          zIndex: 10,
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          opacity: opacityContent,
+          scale: scaleContent
+        }}
+      >
+        {/* Antigravity-style Badge with Icon Only */}
         <motion.div
-          style={{ 
-            position: 'absolute', 
-            bottom: '2rem', 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center', 
-            gap: '0.8rem',
-            zIndex: 30,
-            opacity: opacityContent
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          style={{
+            marginBottom: '3.5rem'
           }}
         >
-          <span style={{ fontSize: '0.75rem', letterSpacing: '0.2em', fontWeight: 600, color: 'var(--text-muted)' }}>SCROLL</span>
-          <motion.div
-            animate={{ y: [0, 10, 0], opacity: [0.3, 1, 0.3] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <ChevronDown size={20} color="var(--text-muted)" />
-          </motion.div>
+          <img src={faviconImg} alt="Favicon Icon" style={{ height: '48px', width: 'auto' }} />
         </motion.div>
-      </div>
+
+        {/* Massive Centered Headline */}
+        <motion.h1
+          style={{
+            fontSize: 'clamp(3.5rem, 8vw, 6.5rem)',
+            fontWeight: 800,
+            color: '#1d1d1f',
+            lineHeight: 1.05,
+            letterSpacing: '-0.04em',
+            maxWidth: '1100px',
+            marginBottom: '2rem',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
+        >
+          {/* First Line */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {"Reviving the".split("").map((char, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  duration: 0.4, 
+                  delay: 0.2 + (i * 0.03),
+                  ease: [0.215, 0.61, 0.355, 1] 
+                }}
+                style={{ display: 'inline-block', whiteSpace: 'pre' }}
+              >
+                {char}
+              </motion.span>
+            ))}
+          </div>
+          
+          {/* Second Line */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }} className="text-gradient-accent">
+            {"Lost Wilderness.".split("").map((char, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  duration: 0.4, 
+                  delay: 0.8 + (i * 0.04), // Delay so it starts after first line
+                  ease: [0.215, 0.61, 0.355, 1] 
+                }}
+                style={{ display: 'inline-block', whiteSpace: 'pre' }}
+              >
+                {char}
+              </motion.span>
+            ))}
+          </div>
+        </motion.h1>
+
+        {/* Subtext */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.6 }}
+          style={{
+            fontSize: 'clamp(1.2rem, 1.8vw, 1.5rem)',
+            color: '#86868b',
+            maxWidth: '700px',
+            marginBottom: '4rem',
+            lineHeight: 1.5,
+            fontWeight: 500
+          }}
+        >
+          Transforming static fossil exhibits into intelligent augmented reality learning experiences through spatial computing.
+        </motion.p>
+
+        <motion.div
+          style={{
+            position: 'absolute',
+            bottom: '3rem',
+            left: 0,
+            width: '100%',
+            color: '#1d1d1f',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '12px',
+            zIndex: 30
+          }}
+        >
+          <span style={{ fontSize: '1.1rem', fontWeight: 500, letterSpacing: '-0.01em', opacity: 0.6 }}>Scroll to Explore</span>
+          <div style={{ position: 'relative', height: '60px', width: '1px', background: 'rgba(0,0,0,0.1)' }}>
+            <motion.div
+              animate={{ y: [0, 60], opacity: [0, 1, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '1px',
+                height: '30px',
+                background: '#1d1d1f'
+              }}
+            />
+          </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

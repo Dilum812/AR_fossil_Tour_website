@@ -1,96 +1,65 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Users, Gamepad2, ArrowRight, ChevronUp, ChevronDown, X } from 'lucide-react';
+import o1Img from '../../assets/o1.jpeg';
+import o2Img from '../../assets/o2.jpeg';
+import o3Img from '../../assets/o3.jpeg';
+import o4Img from '../../assets/o4.jpeg';
+import o5Img from '../../assets/o5.jpeg';
+import o6Img from '../../assets/o6.jpeg';
+import o7Img from '../../assets/o7.jpeg';
 
 const features = [
   {
     id: 1,
     title: "AR Fossil Reconstruction",
     desc: "Watch ancient skeletons flesh out in real-time. Our Unity-based AR engine overlays high-fidelity 3D models seamlessly onto physical fossils.",
-    image: '/feature-ar.png',
+    image: o1Img,
     hasImage: true
   },
   {
     id: 2,
     title: "AI Robot Guide",
     desc: "Powered by advanced language models, the robotic guide answers dynamic questions, offering a deeply conversational and engaging tour experience.",
-    image: '/feature-ai.png',
+    image: o2Img,
     hasImage: true
   },
   {
     id: 3,
     title: "BLE Smart Navigation",
     desc: "An intricate network of ESP32 BLE beacons tracks user location precisely, triggering context-aware content as visitors approach different exhibits.",
-    image: '/feature-nav.png',
+    image: o3Img,
     hasImage: true
   },
   {
     id: 4,
     title: "Voice Interaction",
     desc: "Natural Language Processing allows children to simply speak their questions aloud. The system interprets intent and provides instantaneous, accurate vocal responses.",
-    hasImage: false,
-    diagram: () => (
-      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingLeft: '20%', background: 'radial-gradient(circle at 70% center, rgba(0,102,204,0.05) 0%, transparent 60%)' }}>
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center', height: '200px' }}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
-            <motion.div key={i} animate={{ height: ['10%', '100%', '10%'] }} transition={{ duration: 0.8 + Math.random(), repeat: Infinity, delay: i * 0.1, ease: "easeInOut" }} style={{ width: '12px', background: 'var(--accent-blue)', borderRadius: '6px', boxShadow: '0 0 20px rgba(0,102,204,0.3)' }} />
-          ))}
-        </div>
-      </div>
-    )
+    image: o4Img,
+    hasImage: true
   },
   {
     id: 5,
     title: "Adaptive Learning Personas",
     desc: "The system identifies the user's age and comprehension level, dynamically adjusting the complexity and tone of the information delivered.",
-    hasImage: false,
-    diagram: () => (
-      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingLeft: '20%', background: 'radial-gradient(circle at 70% center, rgba(0,122,255,0.05) 0%, transparent 70%)' }}>
-        <div style={{ display: 'flex', gap: '30px', alignItems: 'center' }}>
-          <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 4, repeat: Infinity }} style={{ width: '100px', height: '100px', borderRadius: '50%', border: '2px dashed rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Users size={32} color="rgba(0,0,0,0.3)" /></motion.div>
-          <ArrowRight color="rgba(0,0,0,0.2)" size={32} />
-          <motion.div animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }} transition={{ duration: 4, repeat: Infinity, delay: 1 }} style={{ width: '160px', height: '160px', borderRadius: '50%', border: '2px solid var(--accent-cyan)', background: 'rgba(0, 122, 255, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 40px rgba(0,122,255,0.1)' }}><Users size={64} color="var(--accent-blue)" /></motion.div>
-        </div>
-      </div>
-    )
+    image: o5Img,
+    hasImage: true
   },
   {
     id: 6,
     title: "Gamified Learning",
     desc: "Transforming observation into an active challenge. Visitors complete mini-quizzes after exhibits to unlock achievements and digital badges.",
-    hasImage: false,
-    diagram: () => (
-      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingLeft: '20%', background: 'radial-gradient(circle at 70% center, rgba(0,102,204,0.05) 0%, transparent 60%)' }}>
-        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <motion.div animate={{ rotate: 360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} style={{ width: '350px', height: '350px', border: '2px dashed rgba(0,102,204,0.3)', borderRadius: '50%', position: 'absolute' }} />
-          <motion.div animate={{ rotate: -360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} style={{ width: '280px', height: '280px', border: '2px solid rgba(0,0,0,0.05)', borderRadius: '50%', position: 'absolute' }} />
-          <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 2, repeat: Infinity }} style={{ width: '140px', height: '140px', background: 'var(--accent-blue)', borderRadius: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 20px 40px rgba(0,102,204,0.3)', position: 'relative', zIndex: 2 }}>
-            <Gamepad2 size={64} color="#fff" />
-          </motion.div>
-        </div>
-      </div>
-    )
+    image: o6Img,
+    hasImage: true
   },
   {
     id: 7,
     title: "Emotional Storytelling",
     desc: "We don't just state facts; we tell the dramatic story of survival. The AI weaves engaging narratives that connect children to prehistoric life.",
-    image: '/feature-story.png',
+    image: o7Img,
     hasImage: true
   },
-  {
-    id: 8,
-    title: "Research Analytics",
-    desc: "A powerful SaaS dashboard for museum curators tracks visitor flow, dwell times, and quiz performance to continuously optimize the exhibit layout.",
-    hasImage: false,
-    diagram: () => (
-      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', paddingLeft: '20%', paddingBottom: '100px', gap: '20px', background: 'linear-gradient(180deg, transparent 0%, rgba(0,102,204,0.05) 100%)' }}>
-        {[40, 70, 50, 90, 60, 80, 100, 60, 85].map((h, i) => (
-          <motion.div key={i} animate={{ height: [`${h * 0.5}%`, `${h}%`, `${h * 0.5}%`] }} transition={{ duration: 4, repeat: Infinity, delay: i * 0.2 }} style={{ width: '40px', background: 'linear-gradient(180deg, var(--accent-blue) 0%, rgba(0,102,204,0) 100%)', borderRadius: '8px 8px 0 0', border: '1px solid rgba(0,102,204,0.2)', borderBottom: 'none' }} />
-        ))}
-      </div>
-    )
-  }
+
 ];
 
 const FeaturePill = ({ feature, isActive, onClick }: { feature: any, isActive: boolean, onClick: () => void }) => {
@@ -118,7 +87,7 @@ const FeaturePill = ({ feature, isActive, onClick }: { feature: any, isActive: b
     >
       <AnimatePresence mode="popLayout">
         {!isActive ? (
-          <motion.div 
+          <motion.div
             key="inactive"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -164,10 +133,10 @@ const SolutionOverviewSection: React.FC = () => {
   };
 
   return (
-    <section 
-      id="technology"
-      style={{ 
-        padding: '6rem 0', 
+    <section
+      id="solution"
+      style={{
+        padding: '6rem 0',
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
@@ -178,13 +147,13 @@ const SolutionOverviewSection: React.FC = () => {
     >
       {/* Section Title */}
       <div style={{ width: '100%', maxWidth: '1400px', padding: '0 5vw', marginBottom: '3rem' }}>
-        <h2 style={{ 
-          fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
-          fontWeight: 700, 
+        <h2 style={{
+          fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+          fontWeight: 700,
           letterSpacing: '-0.04em',
-          color: 'var(--text-primary)' 
+          color: 'var(--text-primary)'
         }}>
-          Take a closer look.
+          The Future of Museum Learning.
         </h2>
       </div>
 
@@ -201,20 +170,20 @@ const SolutionOverviewSection: React.FC = () => {
         display: 'flex',
         alignItems: 'center'
       }}>
-        
+
         {/* Background Visuals (Right aligned or full cover based on image) */}
         <AnimatePresence mode="wait">
           {features.map((feature, index) => {
             if (index !== activeIndex) return null;
-            
+
             return (
               <motion.div
                 key={feature.id}
                 initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.02 }}
-                transition={{ 
-                  duration: 1.2, 
+                transition={{
+                  duration: 1.2,
                   ease: [0.16, 1, 0.3, 1] // Apple's signature expo-out curve
                 }}
                 style={{ position: 'absolute', inset: 0, zIndex: 0 }}
@@ -264,7 +233,7 @@ const SolutionOverviewSection: React.FC = () => {
           display: 'flex',
           alignItems: 'center'
         }}>
-          
+
           {/* Up/Down Arrows */}
           <div style={{
             position: 'absolute',
@@ -273,7 +242,7 @@ const SolutionOverviewSection: React.FC = () => {
             flexDirection: 'column',
             gap: '12px'
           }}>
-            <button 
+            <button
               onClick={handlePrev}
               style={{
                 width: '36px', height: '36px',
@@ -288,7 +257,7 @@ const SolutionOverviewSection: React.FC = () => {
             >
               <ChevronUp size={18} strokeWidth={2.5} />
             </button>
-            <button 
+            <button
               onClick={handleNext}
               style={{
                 width: '36px', height: '36px',
@@ -312,17 +281,17 @@ const SolutionOverviewSection: React.FC = () => {
             gap: '12px',
           }}>
             {features.map((feature, i) => (
-              <FeaturePill 
-                key={feature.id} 
-                feature={feature} 
-                isActive={activeIndex === i} 
-                onClick={() => setActiveIndex(i)} 
+              <FeaturePill
+                key={feature.id}
+                feature={feature}
+                isActive={activeIndex === i}
+                onClick={() => setActiveIndex(i)}
               />
             ))}
           </div>
 
         </div>
-        
+
       </div>
     </section>
   );

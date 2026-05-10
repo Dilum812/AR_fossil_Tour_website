@@ -1,8 +1,105 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const SuccessModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              backdropFilter: 'blur(8px)',
+              zIndex: 1000,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '2rem'
+            }}
+          >
+            {/* Modal Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                backdropFilter: 'blur(40px)',
+                WebkitBackdropFilter: 'blur(40px)',
+                borderRadius: '32px',
+                padding: '3.5rem 2.5rem',
+                width: '100%',
+                maxWidth: '440px',
+                textAlign: 'center',
+                boxShadow: '0 30px 60px rgba(0,0,0,0.12)',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
+              }}
+            >
+              <div style={{
+                width: '72px',
+                height: '72px',
+                backgroundColor: '#34c759',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '1.5rem',
+                boxShadow: '0 10px 20px rgba(52, 199, 89, 0.2)'
+              }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              
+              <h3 style={{ fontSize: '2rem', fontWeight: 700, color: '#1d1d1f', marginBottom: '1rem', letterSpacing: '-0.02em' }}>
+                Message Sent.
+              </h3>
+              <p style={{ fontSize: '1.1rem', color: '#86868b', lineHeight: 1.5, marginBottom: '2.5rem', fontWeight: 500 }}>
+                Thanks for reaching out! We’ll review your inquiry and get back to you shortly.
+              </p>
+              
+              <button
+                onClick={onClose}
+                style={{
+                  width: '100%',
+                  padding: '1.1rem',
+                  backgroundColor: '#1d1d1f',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: '100px',
+                  fontSize: '1rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              >
+                Dismiss
+              </button>
+            </motion.div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
 
 const ContactSection: React.FC = () => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const inputStyle = (fieldName: string) => ({
     width: '100%',
@@ -26,13 +123,50 @@ const ContactSection: React.FC = () => {
     letterSpacing: '-0.01em'
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    
+    // Trying FormSubmit (often faster delivery)
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/dilumthimiraz8@gmail.com", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        setShowSuccess(true);
+        form.reset();
+      } else {
+        // Fallback to mailto
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const subject = formData.get('subject') || 'Inquiry from AR Fossil Tour';
+        const type = formData.get('type') || 'General';
+        const message = formData.get('message');
+        const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0ACollaboration Type: ${type}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+        window.location.href = `mailto:dilumthimiraz8@gmail.com?subject=${encodeURIComponent(subject as string)}&body=${body}`;
+      }
+    } catch (error) {
+      const name = formData.get('name');
+      const message = formData.get('message');
+      window.location.href = `mailto:dilumthimiraz8@gmail.com?subject=Inquiry from AR Fossil Tour&body=Name: ${name}%0D%0A%0D%0A${message}`;
+    }
+  };
+
   return (
-    <section 
+    <section
       id="contact"
       style={{
         position: 'relative',
         padding: '12rem 0',
-        backgroundColor: '#ffffff', // Very clean white/light neutral
+        backgroundColor: '#ffffff',
         color: '#1d1d1f',
         overflow: 'hidden'
       }}
@@ -57,104 +191,43 @@ const ContactSection: React.FC = () => {
           gap: '6rem',
           alignItems: 'center'
         }}>
-          
+
           {/* LEFT SIDE: Editorial Content */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              style={{ 
-                fontSize: 'clamp(3rem, 5vw, 4.5rem)', 
-                fontWeight: 700, 
+              style={{
+                fontSize: 'clamp(3rem, 5vw, 4.5rem)',
+                fontWeight: 700,
                 letterSpacing: '-0.04em',
                 lineHeight: 1.05,
                 marginBottom: '1.5rem',
                 color: '#1d1d1f'
               }}
             >
-              Let’s Build the <br/>
+              Let’s Build the <br />
               <span className="text-gradient-accent">Future of Immersive Learning.</span>
             </motion.h2>
-            
-            <motion.p 
+
+            <motion.p
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              style={{ 
-                fontSize: '1.3rem', 
+              style={{
+                fontSize: '1.25rem',
                 fontWeight: 500,
-                color: '#86868b', 
-                lineHeight: 1.5,
-                marginBottom: '4rem',
-                maxWidth: '600px'
+                color: '#86868b',
+                lineHeight: 1.6,
+                maxWidth: '600px',
+                margin: 0
               }}
             >
               Interested in immersive museum technology, educational innovation, or collaborative research opportunities? Connect to discuss future possibilities.
             </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '2.5rem'
-              }}
-            >
-              {/* Premium Portrait */}
-              <div style={{ position: 'relative', width: '100%', maxWidth: '480px' }}>
-                {/* Subtle floating glow behind image */}
-                <div style={{
-                  position: 'absolute',
-                  inset: '-30px',
-                  background: 'radial-gradient(circle, rgba(0, 102, 204, 0.15) 0%, rgba(255,255,255,0) 70%)',
-                  borderRadius: '50%',
-                  zIndex: 0
-                }} />
-                
-                <motion.div
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  style={{
-                    position: 'relative',
-                    zIndex: 1,
-                    width: '100%',
-                    aspectRatio: '16 / 10',
-                    borderRadius: '32px',
-                    overflow: 'hidden',
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.03)',
-                    border: '1px solid rgba(255,255,255,0.8)',
-                    backgroundColor: '#f5f5f7'
-                  }}
-                >
-                  <img 
-                    src="/researcher_portrait.png" 
-                    alt="Dissanayake D.M.D.T - Interactive Media Researcher"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      objectPosition: 'center'
-                    }}
-                  />
-                </motion.div>
-              </div>
-
-              {/* Researcher Info */}
-              <div>
-                <h4 style={{ fontSize: '1.8rem', fontWeight: 700, color: '#1d1d1f', marginBottom: '0.3rem', letterSpacing: '-0.02em' }}>
-                  Dissanayake D.M.D.T
-                </h4>
-                <span style={{ fontSize: '1.1rem', color: '#0066cc', fontWeight: 600, display: 'block', marginBottom: '0' }}>
-                  Interactive Media Researcher
-                </span>
-              </div>
-            </motion.div>
           </div>
 
           {/* RIGHT SIDE: Contact Form */}
@@ -173,14 +246,16 @@ const ContactSection: React.FC = () => {
               boxShadow: '0 25px 50px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02)',
               border: '1px solid rgba(255, 255, 255, 0.5)'
             }}>
-              <form onSubmit={(e) => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
                   <div>
                     <label style={labelStyle}>Full Name</label>
-                    <input 
-                      type="text" 
+                    <input
+                      name="name"
+                      type="text"
                       placeholder="Jane Doe"
+                      required
                       onFocus={() => setFocusedField('name')}
                       onBlur={() => setFocusedField(null)}
                       style={inputStyle('name')}
@@ -188,9 +263,11 @@ const ContactSection: React.FC = () => {
                   </div>
                   <div>
                     <label style={labelStyle}>Email Address</label>
-                    <input 
-                      type="email" 
+                    <input
+                      name="email"
+                      type="email"
                       placeholder="jane@example.com"
+                      required
                       onFocus={() => setFocusedField('email')}
                       onBlur={() => setFocusedField(null)}
                       style={inputStyle('email')}
@@ -200,9 +277,11 @@ const ContactSection: React.FC = () => {
 
                 <div>
                   <label style={labelStyle}>Subject</label>
-                  <input 
-                    type="text" 
+                  <input
+                    name="subject"
+                    type="text"
                     placeholder="How can we collaborate?"
+                    required
                     onFocus={() => setFocusedField('subject')}
                     onBlur={() => setFocusedField(null)}
                     style={inputStyle('subject')}
@@ -213,6 +292,7 @@ const ContactSection: React.FC = () => {
                   <label style={labelStyle}>Collaboration Type (Optional)</label>
                   <div style={{ position: 'relative' }}>
                     <select
+                      name="type"
                       defaultValue=""
                       onFocus={() => setFocusedField('type')}
                       onBlur={() => setFocusedField(null)}
@@ -239,7 +319,7 @@ const ContactSection: React.FC = () => {
                       color: '#86868b'
                     }}>
                       <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
                   </div>
@@ -247,9 +327,11 @@ const ContactSection: React.FC = () => {
 
                 <div>
                   <label style={labelStyle}>Message</label>
-                  <textarea 
+                  <textarea
+                    name="message"
                     rows={4}
                     placeholder="Tell me about your project or inquiry..."
+                    required
                     onFocus={() => setFocusedField('message')}
                     onBlur={() => setFocusedField(null)}
                     style={{
@@ -261,6 +343,7 @@ const ContactSection: React.FC = () => {
                 </div>
 
                 <motion.button
+                  type="submit"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   style={{
@@ -288,6 +371,7 @@ const ContactSection: React.FC = () => {
 
         </div>
       </div>
+      <SuccessModal isOpen={showSuccess} onClose={() => setShowSuccess(false)} />
     </section>
   );
 };
