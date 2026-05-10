@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, Transition } from 'framer-motion';
+import { motion, AnimatePresence, type Transition } from 'framer-motion';
 import { Smartphone, Cpu, Bluetooth, Mic, BarChart, Gamepad2, Plus, X, User, Lightbulb, Eye, Map } from 'lucide-react';
 import openaiIcon from '../../assets/openai.jpg';
 import firebaseIcon from '../../assets/firebase.png';

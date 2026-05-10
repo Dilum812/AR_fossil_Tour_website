@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Users, Gamepad2, ArrowRight, ChevronUp, ChevronDown, X } from 'lucide-react';
+import { Plus, ChevronUp, ChevronDown, X } from 'lucide-react';
 import o1Img from '../../assets/o1.jpeg';
 import o2Img from '../../assets/o2.jpeg';
 import o3Img from '../../assets/o3.jpeg';
@@ -188,16 +188,14 @@ const SolutionOverviewSection: React.FC = () => {
                 }}
                 style={{ position: 'absolute', inset: 0, zIndex: 0 }}
               >
-                {feature.hasImage ? (
+                {(feature as any).hasImage ? (
                   <div style={{
                     position: 'absolute', inset: 0,
-                    backgroundImage: `url(${feature.image})`,
+                    backgroundImage: `url(${(feature as any).image})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                   }} />
-                ) : (
-                  feature.diagram && feature.diagram()
-                )}
+                ) : null}
               </motion.div>
             );
           })}
