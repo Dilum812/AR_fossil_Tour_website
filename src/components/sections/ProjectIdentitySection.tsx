@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Transition } from 'framer-motion';
 import { Smartphone, Cpu, Bluetooth, Mic, BarChart, Gamepad2, Plus, X, User, Lightbulb, Eye, Map } from 'lucide-react';
 import openaiIcon from '../../assets/openai.jpg';
 import firebaseIcon from '../../assets/firebase.png';
@@ -50,7 +50,7 @@ const techStack = [
 ];
 
 // Apple-style spring animation configuration
-const springTransition = {
+const springTransition: Transition = {
   duration: 1.2,
   ease: [0.16, 1, 0.3, 1]
 };

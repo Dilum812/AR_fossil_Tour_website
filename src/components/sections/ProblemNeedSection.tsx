@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Play, Pause } from 'lucide-react';
 import { animate } from 'framer-motion';
 import scard1 from '../../assets/Scard1.jpeg';
 import scard2 from '../../assets/Scard2.jpeg';

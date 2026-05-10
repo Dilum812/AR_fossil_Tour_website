@@ -138,7 +138,7 @@ const ContactSection: React.FC = () => {
         }
       });
       
-      const result = await response.json();
+      await response.json();
       
       if (response.ok) {
         setShowSuccess(true);

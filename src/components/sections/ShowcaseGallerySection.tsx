@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, animate } from 'framer-motion';
+import { motion, useScroll, useTransform, animate, Transition } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import vsImg from '../../assets/vs.jpeg';
 import sc1Img from '../../assets/Sc1.png';
@@ -55,7 +55,7 @@ const showcaseItems = [
   }
 ];
 
-const springTransition = {
+const springTransition: Transition = {
   duration: 1.2,
   ease: [0.16, 1, 0.3, 1]
 };

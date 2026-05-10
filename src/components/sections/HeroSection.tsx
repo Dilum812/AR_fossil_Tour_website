@@ -1,7 +1,5 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ChevronDown, Apple } from 'lucide-react';
-import logoImg from '../../assets/Ar fossil tour logo.png';
 import faviconImg from '../../assets/favicon.png';
 
 const CustomCursor = () => {
