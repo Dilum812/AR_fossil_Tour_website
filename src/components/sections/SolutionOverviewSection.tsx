@@ -124,6 +124,16 @@ const FeaturePill = ({ feature, isActive, onClick }: { feature: any, isActive: b
 const SolutionOverviewSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Preload all images for instantaneous transitions
+  React.useEffect(() => {
+    features.forEach((feature) => {
+      if (feature.image) {
+        const img = new Image();
+        img.src = feature.image;
+      }
+    });
+  }, []);
+
   const handleNext = () => {
     setActiveIndex((prev) => (prev + 1) % features.length);
   };
