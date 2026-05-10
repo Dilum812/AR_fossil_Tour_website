@@ -62,7 +62,7 @@ const HeroSection: React.FC = () => {
   }, []);
 
   return (
-    <section 
+    <section
       ref={ref}
       style={{
         position: 'relative',
@@ -72,8 +72,8 @@ const HeroSection: React.FC = () => {
       }}
     >
       <CustomCursor />
-      <motion.div 
-        style={{ 
+      <motion.div
+        style={{
           position: 'relative',
           zIndex: 10,
           height: '100%',
@@ -121,10 +121,10 @@ const HeroSection: React.FC = () => {
                 key={i}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  duration: 0.4, 
+                transition={{
+                  duration: 0.4,
                   delay: 0.2 + (i * 0.03),
-                  ease: [0.215, 0.61, 0.355, 1] 
+                  ease: [0.215, 0.61, 0.355, 1]
                 }}
                 style={{ display: 'inline-block', whiteSpace: 'pre' }}
               >
@@ -132,7 +132,7 @@ const HeroSection: React.FC = () => {
               </motion.span>
             ))}
           </div>
-          
+
           {/* Second Line */}
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }} className="text-gradient-accent">
             {"Lost Wilderness.".split("").map((char, i) => (
@@ -140,10 +140,10 @@ const HeroSection: React.FC = () => {
                 key={i}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  duration: 0.4, 
+                transition={{
+                  duration: 0.4,
                   delay: 0.8 + (i * 0.04), // Delay so it starts after first line
-                  ease: [0.215, 0.61, 0.355, 1] 
+                  ease: [0.215, 0.61, 0.355, 1]
                 }}
                 style={{ display: 'inline-block', whiteSpace: 'pre' }}
               >
