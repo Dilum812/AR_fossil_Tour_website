@@ -7,7 +7,7 @@ import sc2Img from '../../assets/Sc2.png';
 import sc3Img from '../../assets/Sc3.png';
 import sc4Img from '../../assets/Sc4.png';
 import sc5Img from '../../assets/Sc5.png';
-import sc6Img from '../../assets/sc6.png';
+import sc6Img from '../../assets/Sc6.png';
 
 const showcaseItems = [
   {

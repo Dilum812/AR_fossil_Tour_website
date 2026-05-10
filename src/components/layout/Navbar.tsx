@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import logoImg from '../../assets/Ar fossil tour logo.png';
+import logoImg from '../../assets/AR fossil tour logo.png';
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
